@@ -187,7 +187,7 @@ date = None
 scenario_md = """
 <|{scenario}|scenario_selector|>
 
-Put a Date
+Select a date
 <|{date}|date|on_change=save|active={scenario}|>
 
 Run the scenario
@@ -203,7 +203,6 @@ tp.Gui(scenario_md).run()
 
 The
 [Scenario management controls](../../../manuals/gui/viselements/controls.md#scenario-management-controls)
-http://127.0.0.1:8000/en/develop/manuals/
 provide all the necessary features to access and manage scenarios and data nodes. In fact,
 creating a Scenario based application connected to your pipelines has never been simpler.
 
@@ -268,7 +267,7 @@ if __name__ == '__main__':
     scenario_md = """
 <|{scenario}|scenario_selector|>
 
-Put a Date
+Select a date
 <|{date}|date|on_change=save|active={scenario}|>
 
 Run the scenario

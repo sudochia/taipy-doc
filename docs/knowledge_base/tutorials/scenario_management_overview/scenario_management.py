@@ -55,7 +55,7 @@ if __name__ == '__main__':
     scenario_md = """
 <|{scenario}|scenario_selector|>
 
-Put a Date
+Select a date
 <|{date}|date|on_change=save|active={scenario}|>
 
 Run the scenario
