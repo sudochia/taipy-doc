@@ -89,7 +89,7 @@ pages work independently:
 Usually, if we were making a simple one-page application, we'd give one of our pages (created
 with [Markdown](../../../manuals/userman/gui/pages/markdown.md),
 [HTML](../../../manuals/userman/gui/pages/html.md) or
-[Python code](../../../manuals/userman/gui/pages/builder.md) to the
+[Python code](../../../manuals/userman/gui/pages/builder.md)) to the
 `Gui.__init__^`(`Gui` constructor). For example, to turn `home.py` into a one-page
 Taipy application,
 we could add these lines:
@@ -97,11 +97,12 @@ we could add these lines:
 ```python title="home.py, as a standalone one-page app"
 from taipy.gui import Markdown, Gui
 
-# same code as before
+if __name__ == "__main__":
+    # same code as before
 
-home_md = Markdown(…) # same content as before
+    home_md = Markdown(…) # same content as before
 
-Gui(page=home_md).run() # or simply, Gui(home_md).run()
+    Gui(page=home_md).run() # or simply, Gui(home_md).run()
 ```
 
 ## Running the Multi-Page Application
@@ -117,9 +118,10 @@ from taipy.gui import Gui
 from pages.home import home_md
 from pages.temperature import temperature_md
 
-pages = {"home": home_md, "temperature": temperature_md}
+if __name__ == "__main__":
+    pages = {"home": home_md, "temperature": temperature_md}
 
-Gui(pages=pages).run()
+    Gui(pages=pages).run()
 ```
 
 We started by importing two Markdown objects, `home_md` and `temperature_md` from the two
@@ -189,13 +191,14 @@ from taipy.gui import Gui
 from pages.home import home_md
 from pages.temperature import temperature_md
 
-pages = {
-    "/": "<|navbar|>",
-    "home": home_md,
-    "temperature": temperature_md,
-}
+if __name__ == "__main__":
+    pages = {
+        "/": "<|navbar|>",
+        "home": home_md,
+        "temperature": temperature_md,
+    }
 
-Gui(pages=pages).run()
+    Gui(pages=pages).run()
 ```
 
 Since every page inherits the root page, you can easily make every page inherit the navbar control
@@ -250,19 +253,20 @@ from taipy.gui import Gui, navigate
 from pages.home import home_md
 from pages.temperature import temperature_md
 
-pages = {
-    "/": "<|menu|lov={page_names}|on_action=menu_action|>",
-    "home": home_md,
-    "temperature": temperature_md,
-}
-page_names = [page for page in pages.keys() if page != "/"]
-
 def menu_action(state, action, payload):
     page = payload["args"][0]
     navigate(state, page)
 
-gui = Gui(pages=pages)
-gui.run(run_browser=False, use_reloader=True)
+if __name__ == "__main__":
+    pages = {
+        "/": "<|menu|lov={page_names}|on_action=menu_action|>",
+        "home": home_md,
+        "temperature": temperature_md,
+    }
+    page_names = [page for page in pages.keys() if page != "/"]
+
+    gui = Gui(pages=pages)
+    gui.run(run_browser=False, use_reloader=True)
 ```
 
 Unlike `navbar` which automatically populates its *lov* (list of values) with the page names

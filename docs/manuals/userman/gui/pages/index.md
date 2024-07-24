@@ -123,7 +123,7 @@ The name of this page is `"/"` (or the value of the
 
 If your application uses only one page, this is typically where it would be created:
 ```python
-  Gui(page="# Page Content")
+Gui(page="# Page Content")
 ```
 creates a page from the Markdown content that you provide and adds this page to the new
 `Gui` instance with the name `"/"`. This makes it straightforward to watch your application
@@ -156,19 +156,21 @@ for all its pages.
 !!! example
 
     Here is an example of a Taipy application that holds several pages:
+
     ```python
-       from taipy import Gui
+    from taipy import Gui
 
-       root_md="# Multi-page application"
-       page1_md="## This is page 1"
-       page2_md="## This is page 2"
+    if __name__ == "__main__":
+        root_md="# Multi-page application"
+        page1_md="## This is page 1"
+        page2_md="## This is page 2"
 
-       pages = {
-         "/": root_md,
-         "page1": page1_md,
-         "page2": page2_md
-       }
-       Gui(pages=pages).run()
+        pages = {
+            "/": root_md,
+            "page1": page1_md,
+            "page2": page2_md
+        }
+        Gui(pages=pages).run()
     ```
     When you run this application and display the page at `http://127.0.0.1:5000/`,
     you will notice that the browser navigates to the page `/page1`, and that the
@@ -197,24 +199,25 @@ runs.
 !!! example
 
     ```python
-       from taipy import Gui
+    from taipy import Gui
 
-       root_md="""
-       # Multi-page application
+    if __name__ == "__main__":
+        root_md="""
+    # Multi-page application
 
-       <|content|>
+    <|content|>
 
-       This application was created with [Taipy](https://www.taipy.io/).
-       """
-       page1_md="## This is page 1"
-       page2_md="## This is page 2"
+    This application was created with [Taipy](https://www.taipy.io/).
+        """
+        page1_md="## This is page 1"
+        page2_md="## This is page 2"
 
-       pages = {
-         "/": root_md,
-         "page1": page1_md,
-         "page2": page2_md
-       }
-       Gui(pages=pages).run()
+        pages = {
+            "/": root_md,
+            "page1": page1_md,
+            "page2": page2_md
+        }
+        Gui(pages=pages).run()
     ```
     This application does the same as in the previous example, except that you now
     have the footer line (*'This application was created...'*) in all the pages of
@@ -239,18 +242,18 @@ user's response.
     content:
 
     ```python
-       ...
-       page="""
-       ...
-       <|{dialog_is_visible}|dialog|
-       Enter a name:
+        ...
+        page="""
+    ...
+    <|{dialog_is_visible}|dialog|
+    Enter a name:
 
-       <|{name}|input|>
-       |>
-       ...
-       """
+    <|{name}|input|>
+    |>
+    ...
+        """
 
-       Gui(page).run()
+        Gui(page).run()
     ```
 
 Please refer to the documentation page on the [`dialog`](../viselements/generic/dialog.md)
@@ -274,16 +277,16 @@ be used in visual elements that use them.
     dialog created in the [example above](#dialogs) would be needed in different pages:
 
     ```python
-       ...
-       gui = Gui()
-       prompt_user = gui.add_partial(
-         """
-         Enter a name:
+        ...
+        gui = Gui()
+        prompt_user = gui.add_partial(
+            """
+            Enter a name:
 
-         <|{name}|input|>
-         """
-       )
-       gui.run()
+            <|{name}|input|>
+            """
+        )
+        gui.run()
     ```
 
 You can take a look at the documentation of the [`dialog`](../viselements/generic/dialog.md) or
@@ -330,19 +333,20 @@ Here is a short example to demonstrate the status page customization:
 ```python
 from taipy.gui import Gui, State
 
-x = 1234
-
 def on_status(state: State):
     return {
         "x": state.x,
         "info": "Some information..."
     }
 
-Gui(page="""
+if __name__ == "__main__":
+    x = 1234
+
+    Gui(page="""
 # Status page
 
 Value of x: <|{x}|>
-""").run()
+    """).run()
 ```
 
 When this application is running, the "/taipy.status.json" page shows a JSON representation of
